@@ -129,91 +129,6 @@ foreach ($products as &$product) {
         .dark-mode .product-card:hover {
             background-color: #6c757d;
         }
-
-        .form-check.form-switch {
-            display: flex;
-            align-items: center;
-            margin-right: 1rem;
-        }
-
-        /* Modern Toggle Switch Design */
-        .theme-switch {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            margin: 0;
-            display: inline-block;
-        }
-
-        .theme-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .theme-switch .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #f4f4f4;
-            transition: all 0.4s ease;
-            border-radius: 34px;
-            border: 2px solid #e8e8e8;
-        }
-
-        .theme-switch .slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 2px;
-            background-color: #ffd43b;
-            transition: all 0.4s ease;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .theme-switch input:checked+.slider {
-            background-color: #2b2b2b;
-            border-color: #3a3a3a;
-        }
-
-        .theme-switch input:checked+.slider:before {
-            transform: translateX(29px);
-            background-color: #ffffff;
-        }
-
-        .theme-switch .icon {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1;
-            width: 16px;
-            height: 16px;
-            transition: opacity 0.3s ease;
-        }
-
-        .theme-switch .sun-icon {
-            left: 8px;
-            opacity: 1;
-        }
-
-        .theme-switch .moon-icon {
-            right: 8px;
-            opacity: 0;
-        }
-
-        .theme-switch input:checked~.sun-icon {
-            opacity: 0;
-        }
-
-        .theme-switch input:checked~.moon-icon {
-            opacity: 1;
-        }
     </style>
 </head>
 
@@ -225,18 +140,16 @@ foreach ($products as &$product) {
             </span>
             <div class="d-flex align-items-center">
                 <span class="text-white me-3">Welcome, <?php echo $_SESSION['username']; ?></span>
-                <label class="theme-switch me-3">
-                    <input type="checkbox" id="darkModeToggle">
-                    <span class="slider"></span>
-                    <img src="../images/sun.png" alt="Light" class="icon sun-icon">
-                    <img src="../images/moon.png" alt="Dark" class="icon moon-icon">
-                </label>
+                <div class="form-check form-switch me-3">
+                    <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                    <label class="form-check-label text-white" for="darkModeToggle"><img src="../images/sun.png" alt="Theme Toggle" width="30" height="30" id="themeIcon"></label>
+                </div>
                 <button class="btn btn-outline-light me-2" onclick="showCart()">
                     <i class="fas fa-shopping-cart me-1"></i>Cart (<span id="cart-count">0</span>)
                 </button>
-                <button onclick="showLogoutConfirmation()" class="btn btn-outline-light">
+                <a href="../logout.php" class="btn btn-outline-light">
                     <img src="../images/Logout.png" width="20" height="20" class="me-1">Logout
-                </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -406,26 +319,6 @@ foreach ($products as &$product) {
         </div>
     </div>
 
-    <!-- Logout Confirmation Modal -->
-    <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logoutConfirmModalLabel">Confirm Logout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to logout?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <a href="../logout.php" class="btn btn-danger">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let cart = [];
@@ -435,7 +328,7 @@ foreach ($products as &$product) {
         function selectProduct(product) {
             try {
                 console.log("selectProduct called with product:", product);
-
+                
                 if (!product) {
                     console.error("Product data is null or undefined");
                     alert("Error: Unable to load product details. Please try again.");
@@ -449,7 +342,7 @@ foreach ($products as &$product) {
                 }
 
                 currentProduct = product;
-
+                
                 // Set modal title and show product image
                 document.getElementById('productModalTitle').textContent = product.name;
                 const modalImageElement = document.getElementById('productModalImage');
@@ -491,7 +384,7 @@ foreach ($products as &$product) {
                             const isSelected = selectedFilterFlavor && flavor === selectedFilterFlavor;
                             flavorSelect.innerHTML += `<option value="${flavor}" ${isSelected ? 'selected' : ''}>${flavor}</option>`;
                         });
-
+                        
                         // If no flavor is selected in filter but there's only one flavor, select it by default
                         if (!selectedFilterFlavor && flavorsArray.length === 1) {
                             flavorSelect.value = flavorsArray[0];
@@ -972,10 +865,10 @@ foreach ($products as &$product) {
                         };
 
                         const imageSrc = safeProduct.image ? `../${safeProduct.image}` : `https://via.placeholder.com/300x200?text=${encodeURIComponent(safeProduct.name)}`;
-                        const startingPrice = (safeProduct.sizes && safeProduct.sizes[0] && safeProduct.sizes[0].price)
-                            ? parseFloat(safeProduct.sizes[0].price).toFixed(2)
+                        const startingPrice = (safeProduct.sizes && safeProduct.sizes[0] && safeProduct.sizes[0].price) 
+                            ? parseFloat(safeProduct.sizes[0].price).toFixed(2) 
                             : 'N/A';
-
+                        
                         // Properly escape the JSON for HTML attributes
                         const safeProductJSON = JSON.stringify(safeProduct)
                             .replace(/&/g, '&amp;')
@@ -1020,30 +913,32 @@ foreach ($products as &$product) {
                 });
             }
         }
-
-        function showLogoutConfirmation() {
-            const logoutModal = new bootstrap.Modal(document.getElementById('logoutConfirmModal'));
-            logoutModal.show();
-        }
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const darkModeToggle = document.getElementById('darkModeToggle');
             const body = document.body;
-            const lightIcon = document.getElementById('lightIcon');
-            const darkIcon = document.getElementById('darkIcon');
+            const themeIcon = document.getElementById('themeIcon');
+
+            // Function to update theme icon
+            const updateThemeIcon = (isDark) => {
+                themeIcon.src = isDark ? '../images/moon.png' : '../images/sun.png';
+            };
 
             // Check if dark mode is enabled in localStorage
             const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
             if (isDarkMode) {
                 body.classList.add('dark-mode');
                 darkModeToggle.checked = true;
+                updateThemeIcon(true);
             }
 
             // Toggle dark mode
             darkModeToggle.addEventListener('change', () => {
                 body.classList.toggle('dark-mode');
                 const isDark = body.classList.contains('dark-mode');
+                // Update icon
+                updateThemeIcon(isDark);
                 // Save dark mode state to localStorage
                 localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
             });

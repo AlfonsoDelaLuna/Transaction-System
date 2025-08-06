@@ -494,7 +494,7 @@ function getSalesChartData(PDO $pdo, string $selectedPeriod)
             }
             $chartTitle = 'Daily Sales (Last 7 Days)';
             break;
-
+        
         case 'weekly':
             $stmt = $pdo->query("
                 SELECT YEARWEEK(order_date, 1) as week_year_key, MIN(DATE(order_date)) as week_start, MAX(DATE(order_date)) as week_end,
@@ -515,7 +515,7 @@ function getSalesChartData(PDO $pdo, string $selectedPeriod)
             }
             $chartTitle = 'Weekly Sales (Last 8 Weeks)';
             break;
-
+        
         case 'monthly':
             $stmt = $pdo->query("
                 SELECT DATE_FORMAT(order_date, '%Y-%m') as month_key, COALESCE(SUM(total_amount), 0) as sales, COUNT(*) as orders
@@ -1069,37 +1069,13 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
         }
 
         body.dark-mode .table-striped>tbody>tr:nth-of-type(odd) {
-            background-color: rgba(255, 255, 255, 0.03);
-        }
-
-        body.dark-mode .table-striped>tbody>tr:nth-of-type(even) {
-            background-color: transparent;
+            background-color: #252525;
         }
 
         body.dark-mode .table-hover tbody tr:hover {
-            background-color: rgba(0, 204, 0, 0.1) !important;
+            background-color: #002800 !important;
             color: #ffffff;
             transition: all 0.3s ease;
-        }
-
-        body.dark-mode .table-hover tbody tr:hover td {
-            color: #ffffff !important;
-        }
-
-        body.dark-mode .table-success {
-            background-color: rgba(0, 204, 0, 0.15) !important;
-        }
-
-        body.dark-mode .table-success td {
-            color: #ffffff !important;
-        }
-
-        body.dark-mode .badge.bg-success {
-            background-color: #00cc00 !important;
-        }
-
-        body.dark-mode .badge.bg-primary {
-            background-color: #3399ff !important;
         }
 
         body.dark-mode .period-selector {
@@ -1811,33 +1787,20 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
             <span class="navbar-brand"><img src="../images/Logo.png" width="30" height="30" class="me-2">Admin
                 Dashboard</span>
             <div class="d-flex align-items-center">
-                <span class="text-white me-3">Welcome, <?php echo $_SESSION['username']; ?></span>
-                <button onclick="showLogoutConfirmation()" class="btn btn-outline-light">
-                    <img src="../images/Logout.png" width="20" height="20" class="me-1">Logout
-                </button>
+                <span class="text-white me-3">Welcome, <?php echo htmlspecialchars($_SESSION['full_name']); ?></span>
+                <div class="d-flex align-items-center me-3">
+                    <img src="../images/sun.png" width="35" height="35" class="me-2">
+                    <label class="dark-mode-switch mb-0">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="dark-mode-slider"></span>
+                    </label>
+                    <img src="../images/moon.png" width="35" height="35" class="me-2">
+                </div>
+                <a href="../logout.php" class="btn btn-outline-light">
+                    <img src="../images/Logout.png" width="20" height="20" class="me-1">Logout</a>
             </div>
         </div>
     </nav>
-
-    <!-- Logout Confirmation Modal -->
-    <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logoutConfirmModalLabel">Confirm Logout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to logout from the admin dashboard?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <a href="../logout.php" class="btn btn-danger">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="container mt-4">
         <?php
@@ -2539,9 +2502,6 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h3 class="mb-0">Best Selling Products</h3>
-                        <button onclick="downloadBestSellersPDF()" class="btn btn-success">
-                            <i class="fas fa-download me-2"></i>Download PDF
-                        </button>
                     </div>
 
                     <div class="row">
@@ -3015,21 +2975,21 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                             datasets: [{
                                 label: 'Sales (₱)',
                                 data: salesChartData.map(item => parseFloat(item.sales)),
-                                borderColor: isDarkMode ? '#00cc00' : '#004600',
-                                backgroundColor: isDarkMode ? 'rgba(0,204,0,0.2)' : 'rgba(0,70,0,0.1)',
+                                borderColor: isDarkMode ? '#00ff00' : '#004600',
+                                backgroundColor: isDarkMode ? 'rgba(0,255,0,0.1)' : 'rgba(0,70,0,0.1)',
                                 tension: 0.3,
                                 fill: true,
                                 yAxisID: 'y',
-                                borderWidth: 2
+                                color: chartColors.textColor
                             }, {
                                 label: 'Orders',
                                 data: salesChartData.map(item => parseInt(item.orders)),
-                                borderColor: isDarkMode ? '#3399ff' : '#3b82f6',
-                                backgroundColor: isDarkMode ? 'rgba(51,153,255,0.2)' : 'rgba(59,130,246,0.1)',
+                                borderColor: isDarkMode ? '#66b3ff' : '#3b82f6',
+                                backgroundColor: isDarkMode ? 'rgba(102,179,255,0.1)' : 'rgba(59,130,246,0.1)',
                                 tension: 0.3,
-                                fill: true,
+                                fill: false,
                                 yAxisID: 'y1',
-                                borderWidth: 2
+                                color: chartColors.textColor
                             },],
                         },
                         options: {
@@ -3045,21 +3005,12 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                                         display: true,
                                         text: 'Period',
                                         color: chartColors.textColor,
-                                        font: {
-                                            size: 12,
-                                            weight: 'bold'
-                                        }
                                     },
                                     grid: {
                                         color: chartColors.gridColor,
-                                        drawBorder: true,
-                                        borderDash: [5, 5]
                                     },
                                     ticks: {
                                         color: chartColors.textColor,
-                                        font: {
-                                            size: 11
-                                        }
                                     },
                                 },
                                 y: {
@@ -3068,22 +3019,13 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                                         display: true,
                                         text: 'Sales (₱)',
                                         color: chartColors.textColor,
-                                        font: {
-                                            size: 12,
-                                            weight: 'bold'
-                                        }
                                     },
                                     ticks: {
                                         callback: v => '₱' + v.toLocaleString(),
                                         color: chartColors.textColor,
-                                        font: {
-                                            size: 11
-                                        }
                                     },
                                     grid: {
                                         color: chartColors.gridColor,
-                                        drawBorder: true,
-                                        borderDash: [5, 5]
                                     },
                                 },
                                 y1: {
@@ -3092,22 +3034,13 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                                         display: true,
                                         text: 'Orders',
                                         color: chartColors.textColor,
-                                        font: {
-                                            size: 12,
-                                            weight: 'bold'
-                                        }
                                     },
                                     grid: {
                                         drawOnChartArea: false,
                                         color: chartColors.gridColor,
-                                        drawBorder: true,
-                                        borderDash: [5, 5]
                                     },
                                     ticks: {
                                         color: chartColors.textColor,
-                                        font: {
-                                            size: 11
-                                        }
                                     },
                                 },
                             },
@@ -3115,32 +3048,14 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                                 legend: {
                                     labels: {
                                         color: chartColors.textColor,
-                                        font: {
-                                            size: 12,
-                                            weight: 'bold'
-                                        },
-                                        usePointStyle: true,
-                                        pointStyle: 'circle'
                                     },
-                                    align: 'center',
                                 },
                                 tooltip: {
-                                    backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-                                    titleColor: chartColors.textColor,
-                                    bodyColor: chartColors.textColor,
-                                    borderColor: chartColors.borderColor,
-                                    borderWidth: 1,
-                                    padding: 10,
-                                    cornerRadius: 4,
-                                    displayColors: true,
                                     callbacks: {
                                         label: ctx =>
                                             ctx.datasetIndex === 0 ?
                                                 `Sales: ₱${ctx.parsed.y.toLocaleString()}` :
                                                 `Orders: ${ctx.parsed.y}`,
-                                        labelTextColor: function (context) {
-                                            return chartColors.textColor;
-                                        }
                                     },
                                 },
                             },
@@ -3189,7 +3104,7 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                     });
 
                     // Update chart colors when theme changes
-                    document.getElementById('darkModeToggle').addEventListener('change', function () {
+                    document.getElementById('darkModeToggle').addEventListener('change', function() {
                         const isDarkMode = this.checked;
                         if (window.paymentChart) {
                             window.paymentChart.options.plugins.legend.labels.color = isDarkMode ? '#ffffff' : '#000000';
@@ -3806,14 +3721,14 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                     type: 'bar',
                     data: {
                         labels: data.labels,
-                        datasets: [{
-                            label: 'Revenue (₱)',
-                            data: data.revenue,
-                            backgroundColor: isDarkMode ? 'rgba(0, 150, 0, 0.8)' : 'rgba(25, 135, 84, 0.8)',
-                            borderColor: isDarkMode ? 'rgba(0, 200, 0, 1)' : '#198754',
-                            borderWidth: 1,
-                            color: textColor
-                        }]
+                                            datasets: [{
+                        label: 'Revenue (₱)',
+                        data: data.revenue,
+                        backgroundColor: isDarkMode ? 'rgba(0, 150, 0, 0.8)' : 'rgba(25, 135, 84, 0.8)',
+                        borderColor: isDarkMode ? 'rgba(0, 200, 0, 1)' : '#198754',
+                        borderWidth: 1,
+                        color: textColor
+                    }]
                     },
                     options: {
                         indexAxis: 'y',
@@ -3969,15 +3884,15 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                 // Function to update chart colors and styles
                 function updateChartTheme(isDarkMode) {
                     const chartColors = {
-                        textColor: isDarkMode ? '#e0e0e0' : '#666666',
-                        gridColor: isDarkMode ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)',
+                        textColor: isDarkMode ? '#ffffff' : '#666666',
+                        gridColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
                         borderColor: isDarkMode ? '#404040' : '#ddd',
                         backgroundColor: isDarkMode ? '#1e1e1e' : '#ffffff',
-                        greenColor: isDarkMode ? '#00cc00' : 'rgba(0, 70, 0, 0.8)',
-                        greenBorder: isDarkMode ? '#00ff00' : 'rgba(0, 70, 0, 1)',
-                        blueColor: isDarkMode ? '#3399ff' : 'rgba(59, 130, 246, 0.8)',
-                        grayColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(128, 128, 128, 0.1)',
-                        labelColor: isDarkMode ? '#e0e0e0' : '#666666'
+                        greenColor: isDarkMode ? 'rgba(0, 150, 0, 0.8)' : 'rgba(0, 70, 0, 0.8)',
+                        greenBorder: isDarkMode ? 'rgba(0, 200, 0, 1)' : 'rgba(0, 70, 0, 1)',
+                        blueColor: isDarkMode ? 'rgba(102, 179, 255, 0.8)' : 'rgba(59, 130, 246, 0.8)',
+                        grayColor: 'rgba(128, 128, 128, 0.2)',  // New gray color for stats
+                        labelColor: '#000000'  // Black color for labels
                     };
 
                     const charts = [
@@ -3986,7 +3901,7 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                         { chart: window.paymentMethodsChart, type: 'payment' }
                     ];
 
-                    charts.forEach(({ chart, type }) => {
+                    charts.forEach(({chart, type}) => {
                         if (!chart) return;
 
                         // Update scales
@@ -4032,16 +3947,16 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                 function handleThemeChange(isDarkMode) {
                     // Update body class
                     body.classList.toggle('dark-mode', isDarkMode);
-
+                    
                     // Update charts
                     updateChartTheme(isDarkMode);
-
+                    
                     // Update icons
                     updateTabIcons(isDarkMode);
-
+                    
                     // Save preference
                     localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-
+                    
                     // Update URL without reload
                     const url = new URL(window.location.href);
                     url.searchParams.set('darkMode', isDarkMode ? '1' : '0');
@@ -4051,112 +3966,16 @@ $isDarkMode = isset($_GET['darkMode']) && $_GET['darkMode'] === '1';
                 // Initialize theme
                 const urlParams = new URLSearchParams(window.location.search);
                 const isDarkMode = urlParams.get('darkMode') === '1' || localStorage.getItem('darkMode') === 'enabled';
-
+                
                 // Set initial state
                 darkModeToggle.checked = isDarkMode;
                 handleThemeChange(isDarkMode);
 
                 // Handle toggle changes
-                darkModeToggle.addEventListener('change', function () {
+                darkModeToggle.addEventListener('change', function() {
                     handleThemeChange(this.checked);
                 });
             });
-
-            // Add this function to generate Best Sellers PDF
-            function downloadBestSellersPDF() {
-                try {
-                    const bestSellersData = <?php echo json_encode($bestSellers); ?>;
-                    if (!bestSellersData || bestSellersData.length === 0) {
-                        alert('No data available to generate PDF.');
-                        return;
-                    }
-
-                    // Initialize jsPDF
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-
-                    // Set title
-                    doc.setFontSize(18);
-                    doc.text('Best Selling Products Report', 15, 20);
-
-                    // Add timestamp
-                    doc.setFontSize(10);
-                    const timestamp = new Date().toLocaleString();
-                    doc.text(`Generated on: ${timestamp}`, 15, 30);
-
-                    // Add table headers
-                    doc.setFontSize(12);
-                    doc.setTextColor(0, 102, 0); // Dark green color for headers
-                    const headers = ['Product Name', 'Revenue (P)', 'Units Sold'];
-                    let y = 40;
-                    doc.text(headers[0], 15, y);
-                    doc.text(headers[1], 110, y);
-                    doc.text(headers[2], 160, y);
-
-                    // Add horizontal line
-                    y += 2;
-                    doc.setDrawColor(0, 102, 0);
-                    doc.line(15, y, 195, y);
-
-                    // Reset text color to black
-                    doc.setTextColor(0, 0, 0);
-
-                    // Add data rows
-                    y += 8;
-                    let totalRevenue = 0;
-                    let totalUnits = 0;
-
-                    bestSellersData.forEach((item, index) => {
-                        if (y > 270) { // Check if we need a new page
-                            doc.addPage();
-                            y = 20;
-                        }
-
-                        doc.text(item.name.substring(0, 50), 15, y); // Limit product name length
-                        doc.text('P ' + parseFloat(item.revenue).toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        }), 110, y, { align: 'left' });
-                        doc.text(item.sales_count.toString(), 160, y, { align: 'left' });
-
-                        totalRevenue += parseFloat(item.revenue);
-                        totalUnits += parseInt(item.sales_count);
-                        y += 10;
-                    });
-
-                    // Add horizontal line before totals
-                    y += 2;
-                    doc.setDrawColor(0, 102, 0);
-                    doc.line(15, y, 195, y);
-                    y += 8;
-
-                    // Add totals
-                    doc.setFont(undefined, 'bold');
-                    doc.text('Total:', 15, y);
-                    doc.text('P ' + totalRevenue.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    }), 110, y);
-                    doc.text(totalUnits.toString(), 160, y);
-
-                    // Add footer
-                    doc.setFont(undefined, 'normal');
-                    doc.setFontSize(8);
-                    doc.text('© Transaction System - Best Sellers Report', 15, doc.internal.pageSize.height - 10);
-
-                    // Save the PDF
-                    doc.save('best_sellers_report.pdf');
-
-                } catch (error) {
-                    console.error('Error generating PDF:', error);
-                    alert('Error generating PDF. Please try again.');
-                }
-            }
-
-            function showLogoutConfirmation() {
-                const logoutModal = new bootstrap.Modal(document.getElementById('logoutConfirmModal'));
-                logoutModal.show();
-            }
         </script>
 </body>
 
