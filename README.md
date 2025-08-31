@@ -2,6 +2,12 @@
 
 This is a PHP-based web application for managing transactions. The system appears to have separate functionalities for regular users and administrators.
 
+## Process Before
+
+## Problems Encounterd
+
+
+
 ## Features
 
 Based on the file structure, the system likely includes the following features:
