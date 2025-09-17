@@ -1,6 +1,6 @@
 # Transaction System
 
-This is a PHP-based web application for managing transactions. The system appears to have separate functionalities for regular users and administrators.
+This is a PHP-based web application for managing transactions. The system have separate functionalities for regular users/ cashier and administrators.
 
 ## Process Before
 
