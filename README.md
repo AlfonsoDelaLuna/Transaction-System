@@ -6,7 +6,7 @@ This is a PHP-based web application for managing transactions. The system have s
 The cashier takes orders from the customer via pen and paper and takes these orders to the chef to make the order.
 
 ## Problems Encounterd
-
+Multiple customers ordeing
 
 
 ## Features
