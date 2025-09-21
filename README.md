@@ -1,6 +1,6 @@
 # Transaction System
 
-This is a PHP-based web application for managing transactions. The system have separate functionalities for regular users/cashier and administrators.
+A PHP-based web application for managing transactions. The system have separate functionalities for regular users/cashier and administrators.
 
 ## Process Before
 The cashier takes orders from the customer via pen and paper and takes these orders to the chef to make the order.
