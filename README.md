@@ -3,11 +3,14 @@
 A PHP-based web application for managing transactions. The system have separate functionalities for regular users/cashier and administrators.
 
 ## Process Before
-The cashier takes orders from the customer via pen and paper and takes these orders to the chef to make the order.
+The cashier would take customer orders by writing them down on pen and paper and then hand these notes to the chef for preparation. This manual process relied entirely on clear handwriting and careful tracking. During peak hours, the cashier often had to manage several orders at the same time, which made the process slower and more stressful. Since everything was recorded manually, there was a high chance of confusion or errors. Overall, the system was inefficient and prone to delays.
 
 ## Problems Encounterd
-Multiple customers ordeing
-
+- Multiple customers ordering at the same time caused confusion.
+- Handwritten notes were sometimes unclear or hard to read.
+- Orders could easily be misplaced or lost.
+- Delays often occurred in communicating orders to the chef.
+- Mistakes in food preparation happened due to miscommunication.
 
 ## Features
 
