@@ -13,17 +13,23 @@ The cashier would take customer orders by writing them down on pen and paper and
 - Mistakes in food preparation happened due to miscommunication.
 
 ## Features
+This system primarily functions as an online ordering platform, built on a database-driven architecture to manage users, products, and transactions.
 
-Based on the file structure, the system likely includes the following features:
+1. User Authentication:
+*   Developer: Implements login.php and logout.php with secure password hashing, session management, and input validation to control access.
+*   User: Provides a secure way to sign in and out, ensuring their account and activities are protected and accessible only to them.
 
-*   **User Authentication:** login.php and logout.php suggest a user login and logout system.
-*   **User-level actions:**
-    *   Placing orders (user/order.php)
-    *   Processing orders (user/process_order.php)
-*   **Admin-level actions:**
-    *   A dashboard for viewing system activity (admin/dashboard.php)
-    *   Checking and managing orders (admin/check_orders.php)
-*   **Database Integration:** The database/transaction_system.sql file indicates that the application uses a MySQL or similar database to store data.
+2. User-Level Ordering:
+*   Developer: Uses user/order.php for displaying products and user/process_order.php for securely handling order submissions. This involves transactional database writes (to orders and order_items tables) and stock management.
+*   User: Allows customers to browse products, place orders, and receive confirmation, with the assurance that their selections are accurately processed.
+
+3. Admin-Level Management:
+*   Developer: admin/dashboard.php provides an overview, while admin/check_orders.php allows authorized administrators to view, filter, and update order statuses. Access is restricted by user roles.
+*   User (Admin): Offers a centralized hub to monitor business activity and efficiently manage customer orders, track their progress, and update their status.
+
+4. Database Foundation:
+*   Developer: The database/transaction_system.sql defines the schema for users, products, orders, and order_items tables, ensuring data integrity, relationships, and enabling robust transactional operations.
+*   User: Guarantees that all account information, product listings, and order history are reliably stored and consistently retrieved, providing a persistent and trustworthy experience.
 
 ## Folder Structure
 
