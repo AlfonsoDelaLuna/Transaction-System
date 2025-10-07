@@ -33,6 +33,9 @@ This system primarily functions as an online ordering platform, built on a datab
 
 ## Folder Structure
 
+## Folder Structure
+
+```text
 project_root/
 ├── admin/
 │   ├── pages/
