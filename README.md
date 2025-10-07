@@ -62,19 +62,19 @@ project_root/
 │       └── images/
 │
 ├── config/
-│   ├── database.php        ← DB connection file
-│   └── app_config.php      ← global constants, settings
+│   ├── database.php
+│   └── app_config.php
 │
 ├── core/
-│   ├── functions.php       ← reusable functions
+│   ├── functions.php
 │   ├── session_handler.php
-│   └── auth.php            ← login/logout logic
+│   └── auth.php
 │
 ├── database/
 │   └── transaction_system.sql
 │
 ├── public/
-│   ├── index.php           ← main entry point (homepage)
+│   ├── index.php
 │   ├── login.php
 │   ├── logout.php
 │   └── register.php
