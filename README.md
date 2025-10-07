@@ -86,7 +86,7 @@ project_root/
     ├── css/
     ├── js/
     └── images/
-
+```
 ## How to Use
 
 1.  **Database Setup:** Import the database/transaction_system.sql file into your MySQL database.
