@@ -33,20 +33,56 @@ This system primarily functions as an online ordering platform, built on a datab
 
 ## Folder Structure
 
-.├── admin
-│   ├── check_orders.php
-│   └── dashboard.php
-├── database
+project_root/
+├── admin/
+│   ├── pages/
+│   │   ├── dashboard.php
+│   │   ├── check_orders.php
+│   │   └── reports.php
+│   ├── includes/
+│   │   ├── header.php
+│   │   ├── sidebar.php
+│   │   └── footer.php
+│   └── assets/
+│       ├── css/
+│       ├── js/
+│       └── images/
+│
+├── user/
+│   ├── pages/
+│   │   ├── order.php
+│   │   └── process_order.php
+│   ├── includes/
+│   │   ├── header.php
+│   │   ├── footer.php
+│   │   └── navbar.php
+│   └── assets/
+│       ├── css/
+│       ├── js/
+│       └── images/
+│
+├── config/
+│   ├── database.php        ← DB connection file
+│   └── app_config.php      ← global constants, settings
+│
+├── core/
+│   ├── functions.php       ← reusable functions
+│   ├── session_handler.php
+│   └── auth.php            ← login/logout logic
+│
+├── database/
 │   └── transaction_system.sql
-├── includes
-├── user
-│   ├── order.php
-│   └── process_order.php
-├── check_orders.php
-├── hash.php
-├── login.php
-└── logout.php
-
+│
+├── public/
+│   ├── index.php           ← main entry point (homepage)
+│   ├── login.php
+│   ├── logout.php
+│   └── register.php
+│
+└── assets/
+    ├── css/
+    ├── js/
+    └── images/
 
 ## How to Use
 
