@@ -31,7 +31,11 @@ This system primarily functions as an online ordering platform, built on a datab
 *   Developer: The database/transaction_system.sql defines the schema for users, products, orders, and order_items tables, ensuring data integrity, relationships, and enabling robust transactional operations.
 *   User: Guarantees that all account information, product listings, and order history are reliably stored and consistently retrieved, providing a persistent and trustworthy experience.
 
-## Folder Structure
+## How to Use
+
+1.  **Database Setup:** Import the database/transaction_system.sql file into your MySQL database.
+2.  **Configuration:** You may need to configure the database connection details in the PHP files (likely within an includes directory or at the top of the main files).
+3.  **Running the application:** Place the project folder in your web server's root directory (e.g., htdocs for XAMPP) and access it through your browser.
 
 ## Folder Structure
 
@@ -87,8 +91,3 @@ project_root/
     ├── js/
     └── images/
 ```
-## How to Use
-
-1.  **Database Setup:** Import the database/transaction_system.sql file into your MySQL database.
-2.  **Configuration:** You may need to configure the database connection details in the PHP files (likely within an includes directory or at the top of the main files).
-3.  **Running the application:** Place the project folder in your web server's root directory (e.g., htdocs for XAMPP) and access it through your browser.
