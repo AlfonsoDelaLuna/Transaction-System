@@ -1,5 +1,4 @@
 # Transaction System
-
 A PHP-based web application for managing transactions. The system have separate functionalities for regular users/cashier and administrators.
 
 ## Process Before
