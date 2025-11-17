@@ -129,6 +129,11 @@ foreach ($products as &$product) {
         .dark-mode .product-card:hover {
             background-color: #6c757d;
         }
+
+        #darkModeToggle.form-check-input {
+            transform: scale(1.5);
+            transform-origin: center;
+        }
     </style>
 </head>
 
@@ -328,7 +333,7 @@ foreach ($products as &$product) {
         function selectProduct(product) {
             try {
                 console.log("selectProduct called with product:", product);
-                
+
                 if (!product) {
                     console.error("Product data is null or undefined");
                     alert("Error: Unable to load product details. Please try again.");
@@ -342,7 +347,7 @@ foreach ($products as &$product) {
                 }
 
                 currentProduct = product;
-                
+
                 // Set modal title and show product image
                 document.getElementById('productModalTitle').textContent = product.name;
                 const modalImageElement = document.getElementById('productModalImage');
@@ -384,7 +389,7 @@ foreach ($products as &$product) {
                             const isSelected = selectedFilterFlavor && flavor === selectedFilterFlavor;
                             flavorSelect.innerHTML += `<option value="${flavor}" ${isSelected ? 'selected' : ''}>${flavor}</option>`;
                         });
-                        
+
                         // If no flavor is selected in filter but there's only one flavor, select it by default
                         if (!selectedFilterFlavor && flavorsArray.length === 1) {
                             flavorSelect.value = flavorsArray[0];
@@ -642,7 +647,7 @@ foreach ($products as &$product) {
                     <div id="change-display" class="mt-2"></div>
                 </div>`;
                 const cashAmountInput = document.getElementById('cash-amount');
-                cashAmountInput.addEventListener('input', function () {
+                cashAmountInput.addEventListener('input', function() {
                     const cashGiven = parseFloat(this.value) || 0;
                     const changeDisplay = document.getElementById('change-display');
                     if (cashGiven >= totalAmount) {
@@ -662,7 +667,7 @@ foreach ($products as &$product) {
                     <div class="invalid-feedback">Transaction number must be 8 digits.</div>
                 </div>`;
                 const gcashTransactionInput = document.getElementById('gcash-transaction');
-                gcashTransactionInput.addEventListener('input', function () {
+                gcashTransactionInput.addEventListener('input', function() {
                     const value = this.value.trim();
                     const isValid = /^[0-9]{8}$/.test(value);
                     this.value = this.value.replace(/[^0-9]/g, '');
@@ -724,12 +729,12 @@ foreach ($products as &$product) {
             };
             document.getElementById('process-payment-btn').disabled = true;
             fetch('process_order.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderPayload)
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderPayload)
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -816,7 +821,7 @@ foreach ($products as &$product) {
                 localStorage.removeItem('orderSystemCart'); // Clear corrupted data
             }
 
-            document.addEventListener('change', function (e) {
+            document.addEventListener('change', function(e) {
                 const target = e.target;
                 if (target.name === 'size' || (target.type === 'checkbox' && target.closest('#addon-options')) || target.id === 'flavor' || target.id === 'sugar-level') {
                     updateItemTotal();
@@ -846,9 +851,9 @@ foreach ($products as &$product) {
 
             let productHtml = '';
             if (productsData && productsData.length > 0) {
-                const filteredProducts = selectedFlavor
-                    ? productsData.filter(product => product.flavors && product.flavors.split(',').map(f => f.trim()).includes(selectedFlavor))
-                    : productsData;
+                const filteredProducts = selectedFlavor ?
+                    productsData.filter(product => product.flavors && product.flavors.split(',').map(f => f.trim()).includes(selectedFlavor)) :
+                    productsData;
 
                 if (filteredProducts.length === 0) {
                     productHtml = '<div class="col-12"><p class="text-center text-muted">No products available with the selected flavor.</p></div>';
@@ -865,10 +870,10 @@ foreach ($products as &$product) {
                         };
 
                         const imageSrc = safeProduct.image ? `../${safeProduct.image}` : `https://via.placeholder.com/300x200?text=${encodeURIComponent(safeProduct.name)}`;
-                        const startingPrice = (safeProduct.sizes && safeProduct.sizes[0] && safeProduct.sizes[0].price) 
-                            ? parseFloat(safeProduct.sizes[0].price).toFixed(2) 
-                            : 'N/A';
-                        
+                        const startingPrice = (safeProduct.sizes && safeProduct.sizes[0] && safeProduct.sizes[0].price) ?
+                            parseFloat(safeProduct.sizes[0].price).toFixed(2) :
+                            'N/A';
+
                         // Properly escape the JSON for HTML attributes
                         const safeProductJSON = JSON.stringify(safeProduct)
                             .replace(/&/g, '&amp;')
@@ -900,7 +905,7 @@ foreach ($products as &$product) {
         displayProducts(productsData);
 
         // Add event listener for flavor filter
-        document.getElementById('flavor-filter').addEventListener('change', function () {
+        document.getElementById('flavor-filter').addwwwwwwwwEventListener('change', function() {
             displayProducts(productsData, this.value);
         });
 
