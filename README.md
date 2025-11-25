@@ -36,7 +36,6 @@ This system primarily functions as an online ordering platform, built on a datab
 3.  **Running the application:** Place the project folder in your web server's root directory (e.g., htdocs for XAMPP) and access it through your browser.
 
 ## Folder Structure
-
 ```text
 project_root/
 ├── admin/
