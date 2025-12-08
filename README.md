@@ -13,7 +13,6 @@ The cashier would take customer orders by writing them down on pen and paper and
 
 ## Features
 This system primarily functions as an online ordering platform, built on a database-driven architecture to manage users, products, and transactions.
-
 1. User Authentication:
 - Developer: Implements login.php and logout.php with secure password hashing, session management, and input validation to control access.
 - User: Provides a secure way to sign in and out, ensuring their account and activities are protected and accessible only to them.
