@@ -1,5 +1,5 @@
 # Transaction System
-A PHP-based web application designed for managing transactions for both cashiers and administrators. The cashier can handle customer orders and process their payments, while the admin can manage the menu, such as updating item details and prices and generate revenue reports ranging from weekly to yearly.
+A PHP-based web application designed for managing transactions for both cashiers and administrators. The cashier can handle customer orders and process their payments, while the admin can manage the menu, such as updating items, prices, and generate revenue reports ranging from weekly to yearly.
 
 ## Process Before
 The cashier would take customer orders by writing them down on pen and paper and then hand these notes to the chef for preparation. This manual process relied entirely on clear handwriting and careful tracking. During peak hours, the cashier often had to manage several orders at the same time, which made the process slower and more stressful. Since everything was recorded manually, there was a high chance of confusion or errors. Overall, the system was inefficient and prone to delays.
